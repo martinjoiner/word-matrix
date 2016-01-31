@@ -1,0 +1,9 @@
+<?php
+
+// Populate these constants and rename this file to config.inc.php 
+
+define( 'CONSUMER_KEY', '' ); 
+define( 'CONSUMER_SECRET', '' ); 
+
+define( 'ACCESS_TOKEN', '' );
+define( 'ACCESS_TOKEN_SECRET', '' );

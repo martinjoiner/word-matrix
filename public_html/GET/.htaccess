@@ -1,0 +1,13 @@
+
+# Various rewrite rules.
+<IfModule mod_rewrite.c>
+
+  RewriteEngine on
+
+  # Mask requests to word.json to word.php 
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} word.json
+  RewriteRule ^(.*)$ word.php [L,QSA]
+
+</IfModule>
