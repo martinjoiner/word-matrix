@@ -1,3 +1,6 @@
+// Include microajax code. Source: https://code.google.com/archive/p/microajax/
+function microAjax(B,A){this.bindFunction=function(E,D){return function(){return E.apply(D,[D])}};this.stateChange=function(D){if(this.request.readyState==4){this.callbackFunction(this.request.responseText)}};this.getRequest=function(){if(window.ActiveXObject){return new ActiveXObject("Microsoft.XMLHTTP")}else{if(window.XMLHttpRequest){return new XMLHttpRequest()}}return false};this.postBody=(arguments[2]||"");this.callbackFunction=A;this.url=B;this.request=this.getRequest();if(this.request){var C=this.request;C.onreadystatechange=this.bindFunction(this.stateChange,this);if(this.postBody!==""){C.open("POST",B,true);C.setRequestHeader("X-Requested-With","XMLHttpRequest");C.setRequestHeader("Content-type","application/x-www-form-urlencoded");C.setRequestHeader("Connection","close")}else{C.open("GET",B,true)}C.send(this.postBody)}};
+
 
 
 /**
@@ -170,5 +173,31 @@ Pixel.prototype.setState = function( newState ){
 
 }
 
+
+
+
+/**
+ * A ticker that hits the server for a new recently Tweeted word and displays it
+ * Sets a timeout with a 5 second delay before making another call
+ *
+ */
+function wordTicker(){
+	microAjax("/GET/word.json", function(data){ 
+
+		data = JSON.parse(data);
+
+		matrix.setWord( data.word );
+
+		setTimeout( function(){ 
+			wordTicker(); 
+		}, 5000 )
+
+	});
+
+}
+
 // Build the 7 letter matrix (Note: Only '5x5' is supported ATM)
 matrix = new Matrix( 7, '5x5' );
+
+// Go baby go!!!
+wordTicker();
