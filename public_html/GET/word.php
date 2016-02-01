@@ -9,7 +9,6 @@ require '../../vendor/autoload.php';
 require '../../config.inc.php';
 
 
-
 /**
  * Searches a sentence for words of a desired length 
  *
@@ -24,13 +23,31 @@ function extractNLengthWords( $length, $source ){
 	$pattern = '/\b[A-Za-z0-9]{' . $length . '}\b/';
 
 	// Define array variable to store matches
-	$matches = [];
+	$matchData = [];
 
 	// Regex find all the correct length words
-	preg_match_all( $pattern, $source, $matches );
+	preg_match_all( $pattern, $source, $matchData );
 
-	return $matches;
+	// Return the actual matches
+	return $matchData[0];
 	
+}
+
+
+
+/**
+ * Sticks all the items from second array to the first array and returns it. 
+ * A faster method than array_merge which copies both array
+ *
+ * @param {array} $firstArray 
+ * @param {array} $secondArray 
+ */
+function array_concat( $firstArray, $secondArray ){
+	$iLimit = count($secondArray);
+	for( $i = 0; $i < $iLimit; $i++ ){
+		$firstArray[] = $secondArray[$i];
+	}
+	return $firstArray;
 }
 
 
@@ -56,7 +73,7 @@ $words = [];
 
 // Iterate over the statuses
 foreach( $statuses as $status ){
-	$words = array_merge($words, ...extractNLengthWords( 7, $status->text ) );
+	$words = array_concat($words, extractNLengthWords( 7, $status->text ) );
 }
 
 
