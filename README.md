@@ -8,4 +8,4 @@ Live at: http://matrix.butterscotchworld.co.uk
 
 ## Technology
 
-PHP (^5.5), Composer https://getcomposer.org/, HTML, JS, Microajax https://code.google.com/archive/p/microajax/, CSS
+PHP (>=5.5), Composer https://getcomposer.org/, HTML, JS, Microajax https://code.google.com/archive/p/microajax/, CSS
