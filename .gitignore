@@ -2,3 +2,6 @@
 logs
 vendor
 config.inc.php
+
+# Ignore PHPStorm config
+.idea
